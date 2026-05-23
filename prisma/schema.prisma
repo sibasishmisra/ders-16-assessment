@@ -1,0 +1,41 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Assessment {
+  id          String   @id @default(cuid())
+  candidateName String
+  candidateEmail String
+  responses   String   // JSON string of responses
+  totalScore  Int
+  awarenessScore Int
+  clarityScore Int
+  goalsScore Int
+  impulseScore Int
+  strategiesScore Int
+  nonAcceptanceScore Int
+  timeTaken   Int      // in seconds
+  startedAt   DateTime
+  completedAt DateTime
+  createdAt   DateTime @default(now())
+  
+  @@index([candidateEmail])
+  @@index([completedAt])
+}
