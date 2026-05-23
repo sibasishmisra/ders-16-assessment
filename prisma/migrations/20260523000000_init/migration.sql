@@ -1,16 +1,18 @@
 -- CreateTable
 CREATE TABLE "Admin" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Admin_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Assessment" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "candidateName" TEXT NOT NULL,
     "candidateEmail" TEXT NOT NULL,
     "responses" TEXT NOT NULL,
@@ -22,9 +24,11 @@ CREATE TABLE "Assessment" (
     "strategiesScore" INTEGER NOT NULL,
     "nonAcceptanceScore" INTEGER NOT NULL,
     "timeTaken" INTEGER NOT NULL,
-    "startedAt" DATETIME NOT NULL,
-    "completedAt" DATETIME NOT NULL,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    "startedAt" TIMESTAMP(3) NOT NULL,
+    "completedAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Assessment_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
