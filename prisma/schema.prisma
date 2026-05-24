@@ -1,5 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// DERS-16 Assessment — Prisma Schema
+// Bjureberg et al. (2016): 5 subscales, no Awareness, no reverse scoring.
+// Total range 16–80.
 
 generator client {
   provider = "prisma-client"
@@ -20,22 +21,26 @@ model Admin {
 }
 
 model Assessment {
-  id          String   @id @default(cuid())
-  candidateName String
+  id             String   @id @default(cuid())
+  candidateName  String
   candidateEmail String
-  responses   String   // JSON string of responses
-  totalScore  Int
-  awarenessScore Int
-  clarityScore Int
-  goalsScore Int
-  impulseScore Int
-  strategiesScore Int
-  nonAcceptanceScore Int
-  timeTaken   Int      // in seconds
+  responses      String   // JSON: { [itemId: number]: 1|2|3|4|5 }
+
+  // Scores — range 16–80 total, no awarenessScore
+  totalScore         Int
+  clarityScore       Int   // items 1,2       max 10
+  goalsScore         Int   // items 3,7,15    max 15
+  impulseScore       Int   // items 4,8,11    max 15
+  strategiesScore    Int   // items 5,6,12,14,16  max 25
+  nonAcceptanceScore Int   // items 9,10,13   max 15
+
+  band      String   // 'Low' | 'Mild–Moderate' | 'Elevated' | 'High'
+  timeTaken Int      // seconds
   startedAt   DateTime
   completedAt DateTime
   createdAt   DateTime @default(now())
-  
+
   @@index([candidateEmail])
   @@index([completedAt])
+  @@index([totalScore])
 }
